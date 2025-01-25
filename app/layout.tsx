@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Open Wallet',
-  description: Open Wallet',
+  description: 'Open Wallet',
 }
 
 export default function RootLayout({
