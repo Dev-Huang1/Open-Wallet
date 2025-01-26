@@ -36,7 +36,7 @@ export default function MenuBar() {
     const data = { balance, currency, transactions }
     const dataStr = JSON.stringify(data)
     const dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataStr)
-    const exportFileDefaultName = "expense_tracker_data.json"
+    const exportFileDefaultName = "open_wallet_data.json"
 
     const linkElement = document.createElement("a")
     linkElement.setAttribute("href", dataUri)
@@ -108,7 +108,7 @@ export default function MenuBar() {
       <Dialog open={isImportDialogOpen} onOpenChange={setIsImportDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{language === "en" ? "Import Data" : "导入数据"}</DialogTitle>
+            <DialogTitle>{language === "en" ? "Import Open Wallet Data" : "导入开放钱包数据"}</DialogTitle>
             <DialogDescription>
               {language === "en"
                 ? "This will overwrite your current data. Are you sure you want to proceed?"
@@ -129,3 +129,4 @@ export default function MenuBar() {
     </div>
   )
 }
+
