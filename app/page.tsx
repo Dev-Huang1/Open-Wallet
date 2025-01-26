@@ -38,6 +38,7 @@ function Home() {
 
   return (
     <main className="container mx-auto p-4 max-w-4xl">
+      <h1 className="text-3xl font-bold text-center mb-6">{language === "en" ? "Open Wallet" : "Open Wallet"}</h1>
       <MenuBar />
       {!isBalanceSet ? (
         <BalanceSetup onSetBalance={handleSetBalance} />
@@ -79,3 +80,4 @@ export default function App() {
     </LanguageProvider>
   )
 }
+
