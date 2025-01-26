@@ -1,3 +1,5 @@
+const isClient = typeof window !== "undefined"
+
 import { useState, useEffect } from "react"
 
 export interface Transaction {
@@ -10,24 +12,29 @@ export interface Transaction {
 }
 
 export function useTransactions() {
-  const [balance, setBalance] = useState<number>(0)
-  const [currency, setCurrency] = useState<string>("CNY")
-  const [transactions, setTransactions] = useState<Transaction[]>([])
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
+  const [balance, setBalance] = useState(() => {
+    if (isClient) {
       const storedBalance = localStorage.getItem("balance")
-      const storedCurrency = localStorage.getItem("currency")
-      const storedTransactions = localStorage.getItem("transactions")
-
-      setBalance(storedBalance ? Number(storedBalance) : 0)
-      setCurrency(storedCurrency || "CNY")
-      setTransactions(storedTransactions ? JSON.parse(storedTransactions) : [])
+      return storedBalance ? Number(storedBalance) : 0
     }
-  }, [])
+    return 0
+  })
+  const [currency, setCurrency] = useState(() => {
+    if (isClient) {
+      return localStorage.getItem("currency") || "CNY"
+    }
+    return "CNY"
+  })
+  const [transactions, setTransactions] = useState<Transaction[]>(() => {
+    if (isClient) {
+      const storedTransactions = localStorage.getItem("transactions")
+      return storedTransactions ? JSON.parse(storedTransactions) : []
+    }
+    return []
+  })
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (isClient) {
       localStorage.setItem("balance", balance.toString())
       localStorage.setItem("currency", currency)
       localStorage.setItem("transactions", JSON.stringify(transactions))
@@ -92,3 +99,4 @@ export function useTransactions() {
     importData,
   }
 }
+
