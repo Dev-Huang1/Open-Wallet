@@ -8,15 +8,22 @@ interface BalanceSetupProps {
   onSetBalance: (amount: number, currency: string) => void
 }
 
+const currencyOptions = [
+  { value: "USD", symbol: "$", name: "US Dollar" },
+  { value: "EUR", symbol: "€", name: "Euro" },
+  { value: "GBP", symbol: "£", name: "British Pound" },
+  { value: "JPY", symbol: "¥", name: "Japanese Yen" },
+  { value: "CNY", symbol: "¥", name: "Chinese Yuan" },
+]
+
 export default function BalanceSetup({ onSetBalance }: BalanceSetupProps) {
   const { language } = useLanguage()
   const [amount, setAmount] = useState("")
-  const [currency, setCurrency] = useState("CNY")
-  const [customCurrency, setCustomCurrency] = useState("")
+  const [currency, setCurrency] = useState("USD")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSetBalance(Number(amount), currency === "custom" ? customCurrency : currency)
+    onSetBalance(Number(amount), currency)
   }
 
   return (
@@ -34,20 +41,13 @@ export default function BalanceSetup({ onSetBalance }: BalanceSetupProps) {
           <SelectValue placeholder={language === "en" ? "Select currency" : "选择货币"} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="CNY">CNY</SelectItem>
-          <SelectItem value="USD">USD</SelectItem>
-          <SelectItem value="EUR">EUR</SelectItem>
-          <SelectItem value="custom">{language === "en" ? "Custom" : "自定义"}</SelectItem>
+          {currencyOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.symbol} - {option.name}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
-      {currency === "custom" && (
-        <Input
-          value={customCurrency}
-          onChange={(e) => setCustomCurrency(e.target.value)}
-          placeholder={language === "en" ? "Enter custom currency" : "输入自定义货币"}
-          required
-        />
-      )}
       <Button type="submit" className="w-full">
         {language === "en" ? "Confirm" : "确认"}
       </Button>
