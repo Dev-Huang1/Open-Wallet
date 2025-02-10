@@ -1,6 +1,6 @@
 {
   "name": "open-wallet",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -61,7 +61,10 @@
     "@emotion/is-prop-valid": "latest",
     "react-chartjs-2": "latest",
     "framer-motion": "latest",
-    "canvas-confetti": "latest"
+    "crypto-js": "latest",
+    "qrcode.react": "latest",
+    "canvas-confetti": "latest",
+    "qr-scanner": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",
