@@ -4,7 +4,8 @@ import { useTransactions } from "../hooks/useTransactions"
 import { useLanguage } from "../contexts/LanguageContext"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import MenuBar from "../components/MenuBar"
+import { MobileHeader } from "../components/MobileHeader"
+import { BottomNav } from "../components/BottomNav"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, ShoppingBag, Utensils, Bus, Film } from "lucide-react"
@@ -25,7 +26,7 @@ const categories = [
 
 export default function AnalyticsPage() {
   const { transactions, currency } = useTransactions()
-  const { language } = useLanguage()
+  const { language, setLanguage } = useLanguage()
   const [timeRange, setTimeRange] = useState<"week" | "month" | "year">("week")
 
   const getDateRange = () => {
@@ -119,7 +120,7 @@ export default function AnalyticsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-primary/10 to-background p-4">
+    <main className="min-h-screen bg-gradient-to-b from-primary/10 to-background p-4 pb-20">
       <div className="max-w-7xl mx-auto">
         <div className="lg:grid lg:grid-cols-12 lg:gap-6">
           {/* Left column */}
@@ -131,7 +132,7 @@ export default function AnalyticsPage() {
                 </Button>
               </Link>
               <h1 className="text-xl font-semibold">{language === "en" ? "Analytics" : "分析"}</h1>
-              <MenuBar />
+              <MobileHeader onLanguageChange={() => setLanguage(language === "en" ? "zh" : "en")} />
             </div>
 
             <Card>
@@ -222,6 +223,7 @@ export default function AnalyticsPage() {
           </div>
         </div>
       </div>
+      <BottomNav />
     </main>
   )
 }
